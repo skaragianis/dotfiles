@@ -16,7 +16,6 @@ brew "nvm"
 brew "golang"
 brew "golang-migrate"
 brew "vim"
-cask "font-hack-nerd-font"
 
 #cask "slack"
 #cask "discord"
@@ -38,6 +37,7 @@ cask "rectangle-pro"
 cask "forklift"
 cask "1password6"
 cask "dbeaver-community"
+cask "font-hack-nerd-font"
 
 mas "Desk Remote Control", id: 1509037746
 mas "Amazon Prime Video", id: 545519333
