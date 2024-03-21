@@ -1,5 +1,6 @@
 tap "homebrew/cask-versions"
 tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
 
 brew "wget"
 brew "telnet"
@@ -15,6 +16,7 @@ brew "nvm"
 brew "golang"
 brew "golang-migrate"
 brew "vim"
+cask "font-hack-nerd-font"
 
 #cask "slack"
 #cask "discord"
