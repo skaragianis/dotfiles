@@ -38,6 +38,7 @@ cask "1password6"
 cask "dbeaver-community"
 
 mas "Desk Remote Control", id: 1509037746
+mas "Amazon Prime Video", id: 545519333
 
 vscode "usernamehw.errorlens"
 vscode "golang.go"
