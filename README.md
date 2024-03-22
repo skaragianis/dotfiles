@@ -12,9 +12,9 @@ Warning: This might not be for you. If you'd like to try it, you should make a f
 defaults write -g ApplePressAndHoldEnabled -bool false
 ```
 
-### Install Homebrew
+### Install homebrew
 
-Follwing the instructions [here](https://brew.sh/)
+Follow the instructions [here](https://brew.sh/)
 
 ### Clone dotfile repo
 
@@ -50,6 +50,8 @@ Change the font of the default profile text to `hack nerd font mono`
 
 ``` fish
 omf install nvm
+nvm install --lts
+npm install -g yarn
 ```
 
 ### Configure python (using pyenv)
