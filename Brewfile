@@ -15,11 +15,12 @@ brew "podman"
 brew "nvm"
 brew "golang"
 brew "golang-migrate"
+brew "pyenv"
 brew "vim"
 
 #cask "slack"
 #cask "discord"
-#cask "figma"
+cask "figma"
 cask "iterm2"
 cask "obsidian"
 cask "logseq"
@@ -38,6 +39,7 @@ cask "forklift"
 cask "1password6"
 cask "dbeaver-community"
 cask "font-hack-nerd-font"
+cask "bitwarden"
 
 mas "Desk Remote Control", id: 1509037746
 mas "Amazon Prime Video", id: 545519333
