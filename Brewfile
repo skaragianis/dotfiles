@@ -4,6 +4,7 @@ tap "homebrew/cask-versions"
 
 brew "awscli"
 brew "coreutils"
+brew "difftastic"
 brew "fish"
 brew "git"
 brew "golang"
