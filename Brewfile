@@ -19,7 +19,6 @@ brew "telnet"
 brew "vim"
 brew "wget"
 
-cask "1password6"
 cask "bitwarden"
 cask "brave-browser"
 cask "dbeaver-community"
