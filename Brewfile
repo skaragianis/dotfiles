@@ -1,8 +1,10 @@
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
+tap "zackelia/formulae"
 
 brew "awscli"
+brew "bclm"
 brew "coreutils"
 brew "difftastic"
 brew "fish"

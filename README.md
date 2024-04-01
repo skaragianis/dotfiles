@@ -30,6 +30,13 @@ cp ~/dotfiles .
 brew bundle
 ```
 
+### Configure battery management
+
+``` bash
+sudo bclm write 80
+sudo bclm persist
+```
+
 ### Configure fish (using Oh My Fish)
 
 ``` bash
