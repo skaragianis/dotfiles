@@ -8,7 +8,7 @@ Warning: This might not be for you. If you'd like to try it, you should make a f
 
 ### MacOS configurations
 
-``` bash
+```bash
 defaults write -g ApplePressAndHoldEnabled -bool false
 ```
 
@@ -18,7 +18,7 @@ Follow the instructions [here](https://brew.sh/)
 
 ### Clone dotfile repo
 
-``` bash
+```bash
 cd ~
 git clone https://github.com/skaragianis/dotfiles.git
 cp ~/dotfiles .
@@ -26,20 +26,20 @@ cp ~/dotfiles .
 
 ### Install cli, cask and appstore applications
 
-``` bash
+```bash
 brew bundle
 ```
 
 ### Configure battery management
 
-``` bash
+```bash
 sudo bclm write 80
 sudo bclm persist
 ```
 
 ### Configure fish (using Oh My Fish)
 
-``` bash
+```bash
 fish
 fish_add_path /opt/homebrew/bin
 echo "/opt/homebrew/bin/fish" | sudo tee -a /etc/shells
@@ -49,13 +49,52 @@ curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install 
 omf install bobthefish
 ```
 
+And add the following to config.fish
+
+```bash
+pyenv init - | source
+
+function n --wraps nnn --description 'support nnn quit and change directory'
+    # Block nesting of nnn in subshells
+    if test -n "$NNNLVL" -a "$NNNLVL" -ge 1
+        echo "nnn is already running"
+        return
+    end
+
+    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
+    # see. To cd on quit only on ^G, remove the "-x" from both lines below,
+    # without changing the paths.
+    if test -n "$XDG_CONFIG_HOME"
+        set -x NNN_TMPFILE "$XDG_CONFIG_HOME/nnn/.lastd"
+    else
+        set -x NNN_TMPFILE "$HOME/.config/nnn/.lastd"
+    end
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
+
+    # The command function allows one to alias this function to `nnn` without
+    # making an infinitely recursive alias
+    command nnn $argv
+
+    if test -e $NNN_TMPFILE
+        source $NNN_TMPFILE
+        rm -- $NNN_TMPFILE
+    end
+end
+```
+
 ### Configure iterm2
 
 Change the font of the default profile text to `hack nerd font mono`
 
 ### Configure nodejs (using nvm)
 
-``` fish
+```fish
 omf install nvm
 nvm install --lts
 npm install -g yarn
@@ -63,13 +102,13 @@ npm install -g yarn
 
 ### Configure python (using pyenv)
 
-``` fish
+```fish
 set -Ux PYENV_ROOT $HOME/.pyenv
 fish_add_path $PYENV_ROOT/bin
 ```
 
 Now, add this to `~/.config/fish/config.fish`:
 
-``` fish
+```fish
 pyenv init - | source
 ```
