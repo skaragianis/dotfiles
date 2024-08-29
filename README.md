@@ -32,10 +32,7 @@ brew bundle
 
 ### Configure battery management
 
-```bash
-sudo bclm write 80
-sudo bclm persist
-```
+Go and install <https://github.com/mhaeuser/Battery-Toolkit>
 
 ### Configure fish (using Oh My Fish)
 
