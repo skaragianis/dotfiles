@@ -109,3 +109,7 @@ Now, add this to `~/.config/fish/config.fish`:
 ```fish
 pyenv init - | source
 ```
+
+### Random MacOS settings
+
+Turn off System Settings / Keyboard / Languages / Add full stop with double-space. This otherwise messes wit vim and using \<space\> as leader for easymotion.
