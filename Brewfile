@@ -57,6 +57,7 @@ cask "sublime-text"
 cask "uhk-agent"
 cask "vlc"
 cask "vscodium"
+cask "whatsapp"
 cask "zoom"
 
 mas "Amazon Prime Video", id: 545519333
