@@ -1,0 +1,9 @@
+;; Hold f activates arrows for keys: i j k l, and caps becomes esc, and lalt and lmet swapped
+(defcfg
+  process-unmapped-keys yes
+)
+(defsrc caps f h j k l lmet lalt)
+(defalias f (tap-hold 100 150 f
+  (layer-while-held arrows)))
+(deflayer base   esc    @f   h    j    k    l   lalt lmet)
+(deflayer arrows _  _    left down up   right   _ _)
