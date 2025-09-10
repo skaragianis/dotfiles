@@ -1,4 +1,5 @@
-;; Hold f activates arrows for keys: i j k l, and caps becomes esc, and lalt and lmet swapped
+;; Kanata Keyboard Configuration
+;; Hold f activates arrows for keys: hjkl, and caps becomes esc, and lalt and lmet swapped
 (defcfg
   process-unmapped-keys yes
 )
