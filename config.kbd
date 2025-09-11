@@ -3,8 +3,8 @@
 (defcfg
   process-unmapped-keys yes
 )
-(defsrc caps f h j k l lmet lalt)
+(defsrc caps f h j k l lmet lalt f13)
 (defalias f (tap-hold 100 150 f
   (layer-while-held arrows)))
-(deflayer base   esc    @f   h    j    k    l   lalt lmet)
-(deflayer arrows _  _    left down up   right   _ _)
+(deflayer base   esc    @f   h    j    k    l   lalt lmet pp)
+(deflayer arrows _  _    left down up   right   _ _ _)
