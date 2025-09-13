@@ -85,10 +85,6 @@ function n --wraps nnn --description 'support nnn quit and change directory'
 end
 ```
 
-### Configure iterm2
-
-Change the font of the default profile text to `hack nerd font mono`
-
 ### Configure nodejs (using nvm)
 
 ```fish
