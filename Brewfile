@@ -2,7 +2,7 @@ tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "oven-sh/bun"
-tap "slp/krunkit" 
+tap "slp/krunkit"
 tap "zackelia/formulae"
 
 brew "7zip"
@@ -68,6 +68,7 @@ cask "visual-studio-code"
 cask "vlc"
 cask "vnc-viewer"
 cask "whatsapp"
+cask "zed"
 cask "zoom"
 
 mas "Amazon Prime Video", id: 545519333
