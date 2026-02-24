@@ -42,6 +42,7 @@ brew "yazi"
 brew "zig"
 brew "zoxide"
 
+cask "android-studio"
 cask "anki"
 cask "antigravity"
 cask "bitwarden"
