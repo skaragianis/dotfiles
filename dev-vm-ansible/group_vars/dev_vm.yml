@@ -17,6 +17,9 @@ apt_packages:
   - unzip
   - zip
   - fish
+  - golang-go
+  - zoxide
+  - fzf
 
 fish_path: /usr/bin/fish
 github_key_comment: debian-dev-vm

@@ -44,6 +44,12 @@
         name: "{{ dev_user }}"
         shell: "{{ fish_path }}"
 
+    - name: Install Task (taskfile.dev) to /usr/local/bin
+      become: true
+      ansible.builtin.shell:
+        cmd: "curl -fsSL https://taskfile.dev/install.sh | sh -s -- -b /usr/local/bin"
+        creates: /usr/local/bin/task
+
     # --- Ghostty terminfo (generate on Mac, load on VM) ---
     - name: Generate ghostty terminfo on the control node
       delegate_to: localhost
@@ -124,6 +130,32 @@
           if test -d "$HOME/.local/share/fnm"
               set -gx PATH "$HOME/.local/share/fnm" $PATH
               fnm env --use-on-cd --shell fish | source
+          end
+
+    - name: Configure fish to initialize zoxide
+      ansible.builtin.copy:
+        dest: "/home/{{ dev_user }}/.config/fish/conf.d/zoxide.fish"
+        mode: "0644"
+        content: |
+          # Managed by dev-vm-ansible: initialize zoxide (z) in fish
+          if type -q zoxide
+              zoxide init fish | source
+          end
+
+    - name: Configure fish to initialize fzf key bindings
+      ansible.builtin.copy:
+        dest: "/home/{{ dev_user }}/.config/fish/conf.d/fzf.fish"
+        mode: "0644"
+        content: |
+          # Managed by dev-vm-ansible: initialize fzf key bindings in fish
+          if type -q fzf
+              # fzf >= 0.48 ships `fzf --fish`; older Debian packages ship a key-bindings file
+              if fzf --fish &>/dev/null
+                  fzf --fish | source
+              else if test -f /usr/share/doc/fzf/examples/key-bindings.fish
+                  source /usr/share/doc/fzf/examples/key-bindings.fish
+                  fzf_key_bindings
+              end
           end
 
     - name: List installed Node versions
