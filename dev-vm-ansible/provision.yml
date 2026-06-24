@@ -178,6 +178,50 @@
       when: claude_check.rc != 0
       changed_when: true
 
+    # --- codex (run as dev) ---
+    - name: Check whether codex is installed
+      ansible.builtin.shell:
+        cmd: |
+          export PATH="$HOME/.local/share/fnm:$PATH"
+          eval "$(fnm env)"
+          which codex
+        executable: /bin/bash
+      register: codex_check
+      changed_when: false
+      failed_when: false
+
+    - name: Install codex globally
+      ansible.builtin.shell:
+        cmd: |
+          export PATH="$HOME/.local/share/fnm:$PATH"
+          eval "$(fnm env)"
+          npm install -g @openai/codex
+        executable: /bin/bash
+      when: codex_check.rc != 0
+      changed_when: true
+
+    # --- fish 'cc' alias for claude (run as dev) ---
+    - name: Ensure fish functions directory exists
+      ansible.builtin.file:
+        path: "/home/{{ dev_user }}/.config/fish/functions"
+        state: directory
+        mode: "0755"
+
+    - name: Add fish shortcut functions (cc, gd, gp, ga)
+      ansible.builtin.copy:
+        dest: "/home/{{ dev_user }}/.config/fish/functions/{{ item.name }}.fish"
+        mode: "0644"
+        content: |
+          # Managed by dev-vm-ansible
+          function {{ item.name }} --wraps {{ item.wraps }} --description '{{ item.cmd }}'
+              {{ item.cmd }} $argv
+          end
+      loop:
+        - { name: cc, cmd: "claude --dangerously-skip-permissions", wraps: claude }
+        - { name: gs, cmd: "git diff --staged", wraps: git }
+        - { name: gp, cmd: "git push", wraps: git }
+        - { name: ga, cmd: "git add .", wraps: git }
+
     # --- tmux config ---
     - name: Install tmux config for dev (from the Mac's ~/.tmux.conf)
       ansible.builtin.copy:
@@ -192,5 +236,3 @@
       ansible.builtin.debug:
         msg:
           - "1. Add the SSH public key printed above to https://github.com/settings/keys"
-          - "2. SSH in (ssh {{ dev_user }}@<ip>) and run 'claude' once to log in."
-          - "3. Re-login (or 'newgrp docker') so docker group membership takes effect; verify with 'docker run hello-world'."
