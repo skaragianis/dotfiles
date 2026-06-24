@@ -1,4 +1,5 @@
 brew "7zip"
+brew "ansible"
 brew "awscli"
 brew "coreutils"
 brew "deno"
