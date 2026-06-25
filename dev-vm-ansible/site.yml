@@ -1,5 +1,0 @@
----
-# Full first-run: bootstrap then provision.
-# Re-runs should call provision.yml directly.
-- import_playbook: bootstrap.yml
-- import_playbook: provision.yml
