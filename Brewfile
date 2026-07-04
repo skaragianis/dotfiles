@@ -53,6 +53,7 @@ cask "codex-app"
 cask "dbeaver-community"
 cask "discord"
 cask "font-hack-nerd-font"
+cask "font-jetbrains-mono"
 cask "forklift"
 cask "ghostty"
 cask "google-chrome"
@@ -75,7 +76,3 @@ cask "whatsapp"
 cask "zed"
 cask "zoom"
 cask "zotero"
-
-mas "Amazon Prime Video", id: 545519333
-mas "Bee DICOM Viewer", id: 1590273176
-mas "Desk Remote Control", id: 1509037746
