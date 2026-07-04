@@ -1,0 +1,12 @@
+theme=Catppuccin Mocha
+macos-titlebar-style = tabs
+window-save-state = always
+confirm-close-surface = false
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+font-size=14
+font-family=JetBrains Mono
+macos-option-as-alt = true
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+keybind = shift+enter=text:\x1b\r
+mouse-scroll-multiplier = 1
