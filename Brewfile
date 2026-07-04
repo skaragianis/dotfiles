@@ -1,6 +1,7 @@
 brew "7zip"
 brew "ansible"
 brew "awscli"
+brew "chezmoi"
 brew "coreutils"
 brew "deno"
 brew "difftastic"
