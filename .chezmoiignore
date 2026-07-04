@@ -1,0 +1,12 @@
+# Ignore local git metadata inside config directories
+**/.git
+**/.gitignore
+
+# Ignore Neovim state caches & histories
+.config/nvim/undo/
+.config/nvim/view/
+.config/nvim/shallow/
+.config/nvim/**/yankring_history*.txt
+.config/nvim/lazyvim.json
+.config/nvim/lazy-lock.json
+README.md
