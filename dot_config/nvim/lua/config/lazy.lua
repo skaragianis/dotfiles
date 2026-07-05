@@ -27,7 +27,7 @@ require("lazy").setup({
       end,
     },
     {
-      'nvim-telescope/telescope.nvim', 
+      'nvim-telescope/telescope.nvim',
       tag = 'v0.2.2',
       dependencies = { 'nvim-lua/plenary.nvim', { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
       config = function()
@@ -50,6 +50,39 @@ require("lazy").setup({
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope Live Grep' })
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope Buffers' })
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope Help Tags' })
+      end,
+    },
+    {
+        "williamboman/mason.nvim",
+        cmd = "Mason",
+        config = true,
+    },
+    {
+      "williamboman/mason-lspconfig.nvim",
+      dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "go", "lua" },
+      config = function()
+        require("mason-lspconfig").setup({
+          ensure_installed = { "ts_ls", "gopls", "lua_ls" },
+        })
+        vim.lsp.config("ts_ls", {
+          filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+        })
+        vim.lsp.config("gopls", {
+          filetypes = { "go", "gomod", "gowork"},
+        })
+        vim.lsp.config("lua_ls", {
+          filetypes = { "lua" },
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+            },
+          },
+        })
+
+        vim.lsp.enable({ "ts_ls", "gopls", "lua_ls" })
       end,
     },
   },
