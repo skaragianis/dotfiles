@@ -1,1 +1,8 @@
-vim.g.mapleader = " " -- Set spacebar as leader key
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '-', "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
+vim.keymap.set("n", "n", "nzzzv", { desc = "Next search match and center" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Prev search match and center" })
+vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Page down and center" })
+vim.keymap.set("n", "<C-b>", "<C-b>zz", { desc = "Page up and center" })

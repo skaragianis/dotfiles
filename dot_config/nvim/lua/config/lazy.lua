@@ -14,6 +14,51 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     {
+      "catppuccin/nvim",
+      name = "catppuccin",
+      priority = 1000,
+      opts = {
+        flavour = "mocha",
+      },
+    },
+    {
+      'lewis6991/gitsigns.nvim',
+    },
+    {
+      "nvim-mini/mini.statusline",
+      version = false,
+      opts = {
+        set_vim_settings = true,
+      },
+    },
+    {
+      "stevearc/oil.nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      opts = {
+        default_file_explorer = true,
+        columns = {
+          "icon",
+          "mtime",
+        },
+        float = {
+          padding = 2,
+          max_width = 90,
+          max_height = 0,
+          border = "rounded",
+          win_options = {
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+          },
+        },
+        view_options = {
+          show_hidden = true,
+
+          is_always_hidden = function(name, buffer)
+            return name == ".."
+          end,
+        }
+      },
+    },
+    {
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
       config = function()
@@ -50,12 +95,17 @@ require("lazy").setup({
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope Live Grep' })
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope Buffers' })
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope Help Tags' })
+        vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, { desc = 'Telescope LSP Definitions' })
+        vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope LSP References' })
+        vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Telescope LSP Document Symbols' })
+        vim.keymap.set('n', '<leader>fw', builtin.lsp_workspace_symbols, { desc = 'Telescope LSP Document Symbols' })
+        vim.keymap.set('n', '<leader>fh', builtin.diagnostics, { desc = 'Telescope LSP Diagnostics' })
       end,
     },
     {
-        "williamboman/mason.nvim",
-        cmd = "Mason",
-        config = true,
+      "williamboman/mason.nvim",
+      cmd = "Mason",
+      config = true,
     },
     {
       "williamboman/mason-lspconfig.nvim",
@@ -69,7 +119,7 @@ require("lazy").setup({
           filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
         })
         vim.lsp.config("gopls", {
-          filetypes = { "go", "gomod", "gowork"},
+          filetypes = { "go", "gomod", "gowork" },
         })
         vim.lsp.config("lua_ls", {
           filetypes = { "lua" },
@@ -88,3 +138,4 @@ require("lazy").setup({
   },
 })
 
+vim.cmd.colorscheme "catppuccin-mocha"
