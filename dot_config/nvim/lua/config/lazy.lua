@@ -22,6 +22,27 @@ require("lazy").setup({
       },
     },
     {
+      "stevearc/conform.nvim",
+      opts = {
+        formatters_by_ft = {
+          lua = { "stylua" },
+          go = { "gofmt" },
+
+          javascript = { "prettier" },
+          javascriptreact = { "prettier" },
+          typescript = { "prettier" },
+          typescriptreact = { "prettier" },
+
+          python = { "ruff_format" },
+        },
+
+        format_on_save = {
+          timeout_ms = 500,
+          lsp_format = "fallback",
+        },
+      },
+    },
+    {
       'lewis6991/gitsigns.nvim',
     },
     {
@@ -110,10 +131,13 @@ require("lazy").setup({
     {
       "williamboman/mason-lspconfig.nvim",
       dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "go", "lua" },
+      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "go", "lua", "python" },
       config = function()
         require("mason-lspconfig").setup({
           ensure_installed = { "ts_ls", "gopls", "lua_ls" },
+        })
+        vim.lsp.config("basedpyright", {
+          filetypes = { "python" },
         })
         vim.lsp.config("ts_ls", {
           filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
@@ -132,7 +156,7 @@ require("lazy").setup({
           },
         })
 
-        vim.lsp.enable({ "ts_ls", "gopls", "lua_ls" })
+        vim.lsp.enable({ "ts_ls", "gopls", "lua_ls", "basedpyright", "ruff" })
       end,
     },
   },
