@@ -2,7 +2,6 @@ local opt = vim.opt
 
 opt.number = true
 opt.relativenumber = true
-opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
@@ -27,13 +26,12 @@ opt.scrolloff = 10
 opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
-
 vim.g.mapleader = " " -- Set spacebar as leader key
 
 vim.g.netrw_liststyle = 3
 
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '*',
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
   callback = function()
     vim.lsp.buf.format({ async = false })
   end,

@@ -25,7 +25,6 @@ require("lazy").setup({
       "stevearc/conform.nvim",
       opts = {
         formatters_by_ft = {
-          lua = { "stylua" },
           go = { "gofmt" },
 
           javascript = { "prettier" },
@@ -33,7 +32,7 @@ require("lazy").setup({
           typescript = { "prettier" },
           typescriptreact = { "prettier" },
 
-          python = { "ruff_format" },
+          python = { "ruff" },
         },
 
         format_on_save = {
@@ -43,7 +42,10 @@ require("lazy").setup({
       },
     },
     {
-      'lewis6991/gitsigns.nvim',
+      "lewis6991/gitsigns.nvim",
+    },
+    {
+      "christoomey/vim-tmux-navigator",
     },
     {
       "nvim-mini/mini.statusline",
@@ -71,12 +73,13 @@ require("lazy").setup({
           },
         },
         view_options = {
-          show_hidden = true,
-
+          is_hidden_file = function(_, _)
+            return false
+          end,
           is_always_hidden = function(name, _)
             return name == ".."
           end,
-        }
+        },
       },
     },
     {
@@ -85,19 +88,30 @@ require("lazy").setup({
       config = function()
         local configs = require("nvim-treesitter")
         configs.install({
-          "c", "lua", "vim", "vimdoc", "query",
-          "typescript", "tsx",
-          "go", "gomod", "gowork", "gosum",
-          "vue", "javascript", "html", "css"
+          "c",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+          "typescript",
+          "tsx",
+          "go",
+          "gomod",
+          "gowork",
+          "gosum",
+          "vue",
+          "javascript",
+          "html",
+          "css",
         })
       end,
     },
     {
-      'nvim-telescope/telescope.nvim',
-      tag = 'v0.2.2',
-      dependencies = { 'nvim-lua/plenary.nvim', { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
+      "nvim-telescope/telescope.nvim",
+      tag = "v0.2.2",
+      dependencies = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
       config = function()
-        local telescope = require('telescope')
+        local telescope = require("telescope")
         telescope.setup({
           extensions = {
             fzf = {
@@ -105,22 +119,32 @@ require("lazy").setup({
               override_generic_sorter = true,
               override_file_sorter = true,
               case_mode = "smart_case",
-            }
-          }
+            },
+          },
         })
 
-        telescope.load_extension('fzf')
+        telescope.load_extension("fzf")
 
-        local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope Find Files' })
-        vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope Live Grep' })
-        vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope Buffers' })
-        vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope Help Tags' })
-        vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, { desc = 'Telescope LSP Definitions' })
-        vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope LSP References' })
-        vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Telescope LSP Document Symbols' })
-        vim.keymap.set('n', '<leader>fw', builtin.lsp_workspace_symbols, { desc = 'Telescope LSP Document Symbols' })
-        vim.keymap.set('n', '<leader>fh', builtin.diagnostics, { desc = 'Telescope LSP Diagnostics' })
+        local builtin = require("telescope.builtin")
+        vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope Find Files" })
+        vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope Live Grep" })
+        vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope Buffers" })
+        vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope Help Tags" })
+        vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "Telescope LSP Definitions" })
+        vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "Telescope LSP References" })
+        vim.keymap.set(
+          "n",
+          "<leader>fs",
+          builtin.lsp_document_symbols,
+          { desc = "Telescope LSP Document Symbols" }
+        )
+        vim.keymap.set(
+          "n",
+          "<leader>fw",
+          builtin.lsp_workspace_symbols,
+          { desc = "Telescope LSP Document Symbols" }
+        )
+        vim.keymap.set("n", "<leader>fh", builtin.diagnostics, { desc = "Telescope LSP Diagnostics" })
       end,
     },
     {
@@ -162,4 +186,4 @@ require("lazy").setup({
   },
 })
 
-vim.cmd.colorscheme "catppuccin-mocha"
+vim.cmd.colorscheme("catppuccin-mocha")
