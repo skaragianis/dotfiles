@@ -21,7 +21,6 @@ opt.undofile = true
 opt.mouse = "a"
 opt.showmode = false
 opt.signcolumn = "yes"
-opt.cmdheight = 0
 opt.scrolloff = 10
 opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
