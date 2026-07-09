@@ -55,6 +55,15 @@ require("lazy").setup({
       },
     },
     {
+      "refractalize/oil-git-status.nvim",
+
+      dependencies = {
+        "stevearc/oil.nvim",
+      },
+
+      config = true,
+    },
+    {
       "stevearc/oil.nvim",
       dependencies = { "nvim-tree/nvim-web-devicons" },
       opts = {
@@ -62,6 +71,9 @@ require("lazy").setup({
         columns = {
           "icon",
           "mtime",
+        },
+        win_options = {
+          signcolumn = "yes:2"
         },
         float = {
           padding = 2,
