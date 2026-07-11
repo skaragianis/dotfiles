@@ -49,10 +49,5 @@ set -gx VISUAL nvim
 
 zoxide init fish | source
 
-
-# pnpm
-set -gx PNPM_HOME "/Users/steff/Library/pnpm"
-if not string match -q -- "$PNPM_HOME/bin" $PATH
-  set -gx PATH "$PNPM_HOME/bin" $PATH
-end
-# pnpm end
+# PATH / PNPM_HOME / OS-specific env now live in conf.d/path.fish so they
+# stay machine-correct on both macOS and Linux. Don't add path exports here.

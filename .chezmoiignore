@@ -2,6 +2,11 @@
 **/.git
 **/.gitignore
 
+# fish's universal-variable store is machine-local state (fish rewrites it at
+# runtime, and it holds per-machine fish_user_paths). Never manage it, or Mac
+# paths leak onto the Debian VM.
+.config/fish/fish_variables
+
 # Ignore Neovim state caches & histories
 .config/nvim/undo/
 .config/nvim/view/
