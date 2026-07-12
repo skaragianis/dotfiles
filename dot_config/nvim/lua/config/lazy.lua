@@ -170,9 +170,9 @@ require("lazy").setup({
       ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "go", "lua", "python" },
       config = function()
         require("mason-lspconfig").setup({
-          ensure_installed = { "ts_ls", "gopls", "lua_ls" },
+          ensure_installed = { "ts_ls", "gopls", "lua_ls", },
         })
-        vim.lsp.config("basedpyright", {
+        vim.lsp.config("ty", {
           filetypes = { "python" },
         })
         vim.lsp.config("ts_ls", {
@@ -192,7 +192,7 @@ require("lazy").setup({
           },
         })
 
-        vim.lsp.enable({ "ts_ls", "gopls", "lua_ls", "basedpyright", "ruff" })
+        vim.lsp.enable({ "ts_ls", "gopls", "lua_ls", "ty", "ruff" })
       end,
     },
   },
