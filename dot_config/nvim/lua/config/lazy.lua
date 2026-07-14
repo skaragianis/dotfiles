@@ -193,7 +193,25 @@ require("lazy").setup({
           },
           filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
         })
-        vim.lsp.config("vue_ls", { filetypes = { "vue" } })
+        vim.lsp.config("vue_ls", {
+          filetypes = { "vue" },
+          -- Mason's vue-language-server ships TypeScript 7 (the native port), which has
+          -- no JS API, so Volar crashes on `ts.server.protocol`. Hand it the project's
+          -- own TypeScript instead. Must be --tsdk on argv; init_options is ignored.
+          cmd = function(dispatchers, config)
+            local root = config.root_dir or vim.fn.getcwd()
+            local tsdk = root .. "/node_modules/typescript/lib"
+
+            if not vim.uv.fs_stat(tsdk .. "/typescript.js") then
+              vim.notify("vue_ls: no usable TypeScript at " .. tsdk, vim.log.levels.WARN)
+            end
+
+            return vim.lsp.rpc.start(
+              { "vue-language-server", "--stdio", "--tsdk=" .. tsdk },
+              dispatchers
+            )
+          end,
+        })
         vim.lsp.config("gopls", {
           filetypes = { "go", "gomod", "gowork" },
         })
@@ -208,7 +226,7 @@ require("lazy").setup({
           },
         })
 
-        vim.lsp.enable({ "ts_ls", "vue_ls", "gopls", "lua_ls", "ty", "ruff" })
+        tvim.lsp.enable({ "ts_ls", "vue_ls", "gopls", "lua_ls", "ty", "ruff" })
       end,
     },
     {
