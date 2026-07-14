@@ -226,7 +226,7 @@ require("lazy").setup({
           },
         })
 
-        tvim.lsp.enable({ "ts_ls", "vue_ls", "gopls", "lua_ls", "ty", "ruff" })
+        vim.lsp.enable({ "ts_ls", "vue_ls", "gopls", "lua_ls", "ty", "ruff" })
       end,
     },
     {
