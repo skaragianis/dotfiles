@@ -167,11 +167,8 @@ require("lazy").setup({
     {
       "williamboman/mason-lspconfig.nvim",
       dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "go", "lua", "python" },
+      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue", "go", "lua", "python" },
       config = function()
-        require("mason-lspconfig").setup({
-          ensure_installed = { "ts_ls", "vue_ls", "gopls", "lua_ls", },
-        })
         -- mason installs the server here; the plugin ships inside it
         local vue_language_server_path = vim.fn.stdpath("data")
             .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
@@ -191,7 +188,7 @@ require("lazy").setup({
               },
             },
           },
-          filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+          filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
         })
         vim.lsp.config("vue_ls", {
           filetypes = { "vue" },
@@ -225,7 +222,9 @@ require("lazy").setup({
             },
           },
         })
-
+        require("mason-lspconfig").setup({
+          ensure_installed = { "ts_ls", "vue_ls", "gopls", "lua_ls", },
+        })
         vim.lsp.enable({ "ts_ls", "vue_ls", "gopls", "lua_ls", "ty", "ruff" })
       end,
     },
