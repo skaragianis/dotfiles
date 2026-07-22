@@ -1,0 +1,18 @@
+onboarding = false
+
+[ui]
+agent_panel_sort = "spaces"
+
+[keys]
+prefix = "ctrl+b"           # Default prefix, just like tmux
+new_tab = "prefix+c"        # Create new window/tab
+next_tab = "prefix+n"       # Go to next tab
+previous_tab = "prefix+p"   # Go to previous tab
+focus_pane_left = "prefix+h" # Focus left pane
+navigate_pane_down = "prefix+j" # Focus down pane
+navigate_pane_up = "prefix+k" # Focus up pane
+focus_pane_right = "prefix+l" # Focus right pane
+split_horizontal = "prefix+\"" # Standard tmux vertical split (splitting screen left/right)
+split_vertical = "prefix+%"  # Standard tmux horizontal split (splitting screen top/bottom)
+detach = "prefix+d"         # tmux detach habit (overrides Herdr's default 'q')
+
