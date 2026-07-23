@@ -28,6 +28,8 @@ test -d $PNPM_HOME; and fish_add_path -gP $PNPM_HOME $PNPM_HOME/bin
 
 # macOS-only: Homebrew and tools installed under it.
 if test (uname) = Darwin
+    set -gx XDG_CONFIG_HOME $HOME/.config
+
     for dir in \
         /opt/homebrew/bin \
         /opt/homebrew/opt/openjdk@21/bin \
