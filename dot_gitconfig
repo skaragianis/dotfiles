@@ -1,0 +1,22 @@
+[user]
+	name = Steffan Karagianis
+	email = steffan.karagianis@gmail.com
+[init]
+	defaultBranch = main
+[core]
+	excludefile = /Users/steff/.gitignore
+	editor = nvim
+        pager = delta
+[interactive]
+        diffFilter = delta --color-only
+[delta]
+        navigate = true
+        line-numbers = true
+        side-by-size = false
+[alias]
+        dft = -c diff.external=difft diff
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[pull]
+	rebase = true
+

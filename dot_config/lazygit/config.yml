@@ -1,0 +1,12 @@
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+
+customCommands:
+  - key: 'd'
+    context: 'files'
+    description: 'View structural diff with Difftastic'
+    command: 'git dft {{.SelectedFile.Name}}'
+    subprocess: true
+
