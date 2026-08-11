@@ -11,6 +11,7 @@ opt.ignorecase = true
 opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.mouse = "a"
+opt.mousemodel = "popup_setpos"
 opt.number = true
 opt.relativenumber = true
 opt.scrolloff = 10
@@ -21,6 +22,8 @@ opt.smartcase = true
 opt.smartindent = true
 opt.smarttab = true
 opt.softtabstop = 2
+opt.spell = true
+opt.spelllang = "en_au"
 opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
