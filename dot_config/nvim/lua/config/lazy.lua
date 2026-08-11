@@ -31,7 +31,7 @@ require("lazy").setup({
           javascriptreact = { "prettier" },
           typescript = { "prettier" },
           typescriptreact = { "prettier" },
-
+          markdown = { "prettier" },
           python = { "ruff" },
         },
 
@@ -40,6 +40,43 @@ require("lazy").setup({
           lsp_format = "fallback",
         },
       },
+    },
+    {
+      "mfussenegger/nvim-lint",
+      ft = { "markdown" },
+      config = function()
+        local lint = require("lint")
+        lint.linters_by_ft = {
+          markdown = { "markdownlint-cli2" },
+        }
+
+        local project_configs = {
+          ".markdownlint-cli2.jsonc", ".markdownlint-cli2.yaml", ".markdownlint-cli2.cjs", ".markdownlint-cli2.mjs",
+          ".markdownlint.jsonc", ".markdownlint.json", ".markdownlint.yaml", ".markdownlint.yml",
+          ".markdownlint.cjs", ".markdownlint.mjs",
+        }
+        local global_config = vim.fn.expand("~/.config/markdownlint/config.yaml")
+
+        local mdlint = lint.linters["markdownlint-cli2"]
+        mdlint.args = {
+          "--config",
+          function()
+            local found = vim.fs.find(project_configs, {
+              upward = true,
+              path = vim.fn.expand("%:p:h"),
+            })
+            return found[1] or global_config
+          end,
+          "-",
+        }
+
+        vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
+          pattern = "*.md",
+          callback = function()
+            lint.try_lint()
+          end,
+        })
+      end,
     },
     {
       "lewis6991/gitsigns.nvim",
@@ -167,7 +204,7 @@ require("lazy").setup({
     {
       "williamboman/mason-lspconfig.nvim",
       dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue", "go", "lua", "python" },
+      ft = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue", "go", "lua", "python", "markdown" },
       config = function()
         -- mason installs the server here; the plugin ships inside it
         local vue_language_server_path = vim.fn.stdpath("data")
@@ -223,9 +260,9 @@ require("lazy").setup({
           },
         })
         require("mason-lspconfig").setup({
-          ensure_installed = { "ts_ls", "vue_ls", "gopls", "lua_ls", },
+          ensure_installed = { "ts_ls", "vue_ls", "gopls", "lua_ls", "marksman", },
         })
-        vim.lsp.enable({ "ts_ls", "vue_ls", "gopls", "lua_ls", "ty", "ruff" })
+        vim.lsp.enable({ "ts_ls", "vue_ls", "gopls", "lua_ls", "ty", "ruff", "marksman" })
       end,
     },
     {

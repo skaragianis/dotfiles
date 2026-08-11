@@ -33,10 +33,3 @@ opt.wrap = false
 vim.g.mapleader = " " -- Set spacebar as leader key
 
 vim.g.netrw_liststyle = 3
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function()
-    vim.lsp.buf.format({ async = false })
-  end,
-})

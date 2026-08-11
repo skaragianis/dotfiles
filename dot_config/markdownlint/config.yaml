@@ -1,0 +1,26 @@
+# Global markdownlint defaults, used by nvim-lint when a project has no config
+# of its own. Tuned so markdownlint never flags something prettier just wrote,
+# since prettier formats markdown on save (see conform.nvim in nvim/lua/config/lazy.lua).
+config:
+  # --- Disabled: prettier owns these, and its output disagrees with the default ---
+
+  # prettier does not wrap prose (proseWrap: preserve), so long lines are expected.
+  MD013: false
+  # Nested list indentation. prettier indents to the parent marker width, which
+  # does not match a fixed 2-space expectation under ordered lists.
+  MD007: false
+  # Ordered list numbering. prettier renumbers incrementally; pinning a style here
+  # only creates churn.
+  MD029: false
+
+  # --- Aligned to prettier's output rather than disabled, so they still catch drift ---
+  MD004:
+    style: dash # prettier normalises bullets to "-"
+  MD049:
+    style: underscore # prettier emits _emphasis_
+  MD050:
+    style: asterisk # prettier emits **strong**
+  MD048:
+    style: backtick # prettier emits ``` fences
+  MD046:
+    style: fenced
