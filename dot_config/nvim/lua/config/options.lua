@@ -26,6 +26,7 @@ opt.spell = true
 opt.spelllang = "en_au"
 opt.splitbelow = true
 opt.splitright = true
+opt.tabstop = 4
 opt.termguicolors = true
 opt.undofile = true
 opt.wrap = false
