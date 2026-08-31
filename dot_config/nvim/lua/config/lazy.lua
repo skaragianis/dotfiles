@@ -33,6 +33,7 @@ require("lazy").setup({
           typescriptreact = { "prettier" },
           markdown = { "prettier" },
           python = { "ruff" },
+          sql = { "sql_formatter" },
         },
 
         format_on_save = {
@@ -152,8 +153,42 @@ require("lazy").setup({
           "javascript",
           "html",
           "css",
+          "sql",
+        })
+
+        -- the plugin only installs parsers; highlighting/indent must be started per-buffer
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = {
+            "c",
+            "lua",
+            "vim",
+            "help",
+            "query",
+            "typescript",
+            "typescriptreact",
+            "javascript",
+            "javascriptreact",
+            "go",
+            "gomod",
+            "gowork",
+            "gosum",
+            "vue",
+            "html",
+            "css",
+            "sql",
+          },
+          callback = function()
+            vim.treesitter.start()
+            vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end,
         })
       end,
+    },
+    {
+      "windwp/nvim-ts-autotag",
+      ft = { "typescriptreact", "javascriptreact", "html", "vue" },
+      opts = {},
     },
     {
       "nvim-telescope/telescope.nvim",
@@ -246,6 +281,9 @@ require("lazy").setup({
             )
           end,
         })
+        vim.lsp.config("eslint", {
+          filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "vue" },
+        })
         vim.lsp.config("gopls", {
           filetypes = { "go", "gomod", "gowork" },
         })
@@ -260,9 +298,9 @@ require("lazy").setup({
           },
         })
         require("mason-lspconfig").setup({
-          ensure_installed = { "ts_ls", "vue_ls", "gopls", "lua_ls", "marksman", },
+          ensure_installed = { "ts_ls", "vue_ls", "eslint", "gopls", "lua_ls", "marksman", },
         })
-        vim.lsp.enable({ "ts_ls", "vue_ls", "gopls", "lua_ls", "ty", "ruff", "marksman" })
+        vim.lsp.enable({ "ts_ls", "vue_ls", "eslint", "gopls", "lua_ls", "ty", "ruff", "marksman" })
       end,
     },
     {
