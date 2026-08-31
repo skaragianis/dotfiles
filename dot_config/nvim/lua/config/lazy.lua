@@ -27,10 +27,10 @@ require("lazy").setup({
         formatters_by_ft = {
           go = { "gofmt" },
 
-          javascript = { "prettier" },
-          javascriptreact = { "prettier" },
-          typescript = { "prettier" },
-          typescriptreact = { "prettier" },
+          javascript = { "biome" },
+          javascriptreact = { "biome" },
+          typescript = { "biome" },
+          typescriptreact = { "biome" },
           markdown = { "prettier" },
           python = { "ruff" },
           sql = { "sql_formatter" },
