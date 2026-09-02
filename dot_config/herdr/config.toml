@@ -16,3 +16,30 @@ split_horizontal = "prefix+\"" # Standard tmux vertical split (splitting screen 
 split_vertical = "prefix+%"  # Standard tmux horizontal split (splitting screen top/bottom)
 detach = "prefix+d"         # tmux detach habit (overrides Herdr's default 'q')
 
+
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", "$title"],
+  ["agent", "$limit"],
+  ["$context"],
+]
+
+# --- added by Agent Usage (usagebar) setup ---
+[ui.toast]
+delivery = "herdr" # or "system" / "terminal"
+
+[ui.toast.herdr]
+position = "bottom-left"
+
+[[keys.command]]
+key = "prefix+u"
+type = "plugin_action"
+command = "usagebar.open-limits"
+description = "Agent Usage: open limits pane"
+
+[[keys.command]]
+key = "prefix+b"
+type = "plugin_action"
+command = "usagebar.refresh"
+description = "Agent Usage: refresh sidebar meters"
