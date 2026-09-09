@@ -33,13 +33,18 @@ delivery = "herdr" # or "system" / "terminal"
 position = "bottom-left"
 
 [[keys.command]]
-key = "prefix+u"
+key = "cmd+r"
 type = "plugin_action"
-command = "usagebar.open-limits"
-description = "Agent Usage: open limits pane"
+command = "persiyanov.reviewr.toggle"
 
 [[keys.command]]
-key = "prefix+b"
+key = "prefix+a"
 type = "plugin_action"
-command = "usagebar.refresh"
-description = "Agent Usage: refresh sidebar meters"
+command = "live-sync-panes.broadcast"
+description = "broadcast a command to all panes in this tab"
+
+[[keys.command]]
+key = "prefix+y"
+type = "plugin_action"
+command = "live-sync-panes.sync"
+description = "live-sync keystrokes to all panes in this tab"
