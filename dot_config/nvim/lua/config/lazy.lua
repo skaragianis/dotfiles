@@ -81,6 +81,21 @@ require("lazy").setup({
     },
     {
       "lewis6991/gitsigns.nvim",
+      config = function()
+        local gs = require("gitsigns")
+
+        vim.keymap.set('n', ']h', function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(function() gs.next_hunk() end)
+          return '<Ignore>'
+        end, { expr = true, desc = "Jump to next git change" })
+
+        vim.keymap.set('n', '[h', function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(function() gs.prev_hunk() end)
+          return '<Ignore>'
+        end, { expr = true, desc = "Jump to previous git change" })
+      end
     },
     {
       "christoomey/vim-tmux-navigator",
