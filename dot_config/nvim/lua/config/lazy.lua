@@ -126,6 +126,7 @@ require("lazy").setup({
           },
         },
         filesystem = {
+          use_libuv_file_watcher = true,
           filtered_items = {
             hide_dotfiles = false,
             hide_gitignored = false,
@@ -134,6 +135,17 @@ require("lazy").setup({
       },
       config = function(_, opts)
         require("neo-tree").setup(opts)
+        local git_status_timer = vim.uv.new_timer()
+        git_status_timer:start(3000, 3000, vim.schedule_wrap(function()
+          for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            local bufnr = vim.api.nvim_win_get_buf(winid)
+            local ok, source = pcall(vim.api.nvim_buf_get_var, bufnr, "neo_tree_source")
+            if ok and source == "git_status" then
+              require("neo-tree.sources.git_status").refresh()
+              break
+            end
+          end
+        end))
         vim.api.nvim_create_autocmd("VimEnter", {
           callback = function()
             require("neo-tree.command").execute({ source = "filesystem", position = "right", action = "show" })
