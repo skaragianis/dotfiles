@@ -111,6 +111,9 @@ require("lazy").setup({
       },
       opts = {
         close_if_last_window = true,
+        window = {
+          width = 30,
+        },
         default_component_configs = {
           git_status = {
             symbols = {
