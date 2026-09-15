@@ -101,6 +101,39 @@ require("lazy").setup({
       "christoomey/vim-tmux-navigator",
     },
     {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v3.x",
+      lazy = false,
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "nvim-tree/nvim-web-devicons",
+      },
+      opts = {
+        default_component_configs = {
+          git_status = {
+            symbols = {
+              added = "+",
+              modified = "~",
+            },
+          },
+        },
+        filesystem = {
+          filtered_items = {
+            hide_dotfiles = false,
+          },
+        },
+      },
+      config = function(_, opts)
+        require("neo-tree").setup(opts)
+        vim.api.nvim_create_autocmd("VimEnter", {
+          callback = function()
+            require("neo-tree.command").execute({ source = "filesystem", position = "right", action = "show" })
+          end,
+        })
+      end,
+    },
+    {
       "nvim-mini/mini.statusline",
       version = false,
       opts = {
@@ -120,7 +153,7 @@ require("lazy").setup({
       "stevearc/oil.nvim",
       dependencies = { "nvim-tree/nvim-web-devicons" },
       opts = {
-        default_file_explorer = true,
+        default_file_explorer = false,
         columns = {
           "icon",
           "mtime",
