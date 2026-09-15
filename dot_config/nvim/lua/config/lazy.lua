@@ -110,6 +110,7 @@ require("lazy").setup({
         "nvim-tree/nvim-web-devicons",
       },
       opts = {
+        close_if_last_window = true,
         default_component_configs = {
           git_status = {
             symbols = {
