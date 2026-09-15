@@ -111,6 +111,9 @@ require("lazy").setup({
       },
       opts = {
         close_if_last_window = true,
+        source_selector = {
+          winbar = true,
+        },
         window = {
           width = 30,
         },
