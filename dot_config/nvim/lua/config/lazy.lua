@@ -16,11 +16,20 @@ require("lazy").setup({
     {
       "navarasu/onedark.nvim",
       lazy = false,
-      priority = 1000, -- Load this first so the UI doesn't flicker
+      priority = 1000, -- Forces Neovim to load this theme first to prevent visual flickering
       config = function()
         require('onedark').setup({
-          -- Choose from: 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', or 'light'
-          style = 'darker', -- 'dark' is closest to the original Atom One Dark
+          -- Options: 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', or 'light'
+          style = 'darker', -- 'dark' provides the exact, faithful match to Zed's default
+
+          -- Optional: Ensure syntax matching feels right with modern Neovim
+          code_style = {
+            comments = 'italic',
+            keywords = 'none',
+            functions = 'none',
+            strings = 'none',
+            variables = 'none'
+          },
         })
         require('onedark').load()
       end,
