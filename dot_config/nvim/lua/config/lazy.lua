@@ -20,7 +20,7 @@ require("lazy").setup({
       config = function()
         require('onedark').setup({
           -- Options: 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', or 'light'
-          style = 'darker', -- 'dark' provides the exact, faithful match to Zed's default
+          style = 'dark', -- 'dark' provides the exact, faithful match to Zed's default
 
           -- Optional: Ensure syntax matching feels right with modern Neovim
           code_style = {
