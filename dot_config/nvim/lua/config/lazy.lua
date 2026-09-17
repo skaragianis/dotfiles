@@ -14,12 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     {
-      "catppuccin/nvim",
-      name = "catppuccin",
+      "ClearAspect/onehalf",
+      lazy = false,
       priority = 1000,
-      opts = {
-        flavour = "mocha",
-      },
+      config = function()
+        require('onehalf').setup({
+          dimming = { enable = false }
+        })
+        vim.cmd([[colorscheme onehalfdark]])
+      end,
     },
     {
       "stevearc/conform.nvim",
@@ -398,5 +401,3 @@ require("lazy").setup({
     },
   },
 })
-
-vim.cmd.colorscheme("catppuccin-mocha")
