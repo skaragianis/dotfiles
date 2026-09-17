@@ -14,14 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     {
-      "ClearAspect/onehalf",
+      "navarasu/onedark.nvim",
       lazy = false,
-      priority = 1000,
+      priority = 1000, -- Load this first so the UI doesn't flicker
       config = function()
-        require('onehalf').setup({
-          dimming = { enable = false }
+        require('onedark').setup({
+          -- Choose from: 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', or 'light'
+          style = 'dark', -- 'dark' is closest to the original Atom One Dark
         })
-        vim.cmd([[colorscheme onehalfdark]])
+        require('onedark').load()
       end,
     },
     {
