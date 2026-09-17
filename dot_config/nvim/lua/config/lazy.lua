@@ -20,7 +20,7 @@ require("lazy").setup({
       config = function()
         require('onedark').setup({
           -- Choose from: 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', or 'light'
-          style = 'dark', -- 'dark' is closest to the original Atom One Dark
+          style = 'darker', -- 'dark' is closest to the original Atom One Dark
         })
         require('onedark').load()
       end,
