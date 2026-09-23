@@ -19,4 +19,5 @@
 	insteadOf = https://github.com/
 [pull]
 	rebase = true
-
+[merge]
+    ff = only
