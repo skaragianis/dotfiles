@@ -1,0 +1,24 @@
+# Global yamllint defaults, used by nvim-lint when a project has no .yamllint
+# of its own. Tuned so yamllint never flags something prettier just wrote,
+# since prettier formats yaml on save (see conform.nvim in nvim/lua/config/lazy.lua).
+extends: default
+
+rules:
+  # --- Disabled: prettier owns these, or they're noise ---
+
+  # prettier doesn't wrap long strings, so long lines are expected.
+  line-length: disable
+  # Most real-world yaml (compose, CI, k8s) omits the leading "---".
+  document-start: disable
+
+  # --- Aligned to prettier's output rather than disabled ---
+
+  # prettier keeps a single space before inline comments.
+  comments:
+    min-spaces-from-content: 1
+  indentation:
+    spaces: 2
+    indent-sequences: consistent
+  # Still catch yes/no/on/off values, but not keys like GitHub Actions' "on:".
+  truthy:
+    check-keys: false

@@ -47,6 +47,7 @@ require("lazy").setup({
           markdown = { "prettier" },
           python = { "ruff" },
           sql = { "sql_formatter" },
+          yaml = { "prettier", "trim_whitespace", "trim_newlines" },
         },
 
         format_on_save = {
@@ -57,11 +58,12 @@ require("lazy").setup({
     },
     {
       "mfussenegger/nvim-lint",
-      ft = { "markdown" },
+      ft = { "markdown", "yaml" },
       config = function()
         local lint = require("lint")
         lint.linters_by_ft = {
           markdown = { "markdownlint-cli2" },
+          yaml = { "yamllint" },
         }
 
         local project_configs = {
@@ -85,7 +87,7 @@ require("lazy").setup({
         }
 
         vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
-          pattern = "*.md",
+          pattern = { "*.md", "*.yaml", "*.yml" },
           callback = function()
             lint.try_lint()
           end,
