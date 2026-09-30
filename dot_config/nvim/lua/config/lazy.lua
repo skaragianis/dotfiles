@@ -180,6 +180,14 @@ require("lazy").setup({
       version = false,
       event = "InsertEnter",
       opts = {},
+      config = function(_, opts)
+        require("mini.pairs").setup(opts)
+        -- mini.pairs skips <CR>/<BS> if any mapping exists when it loads, e.g.
+        -- a Telescope prompt's buffer-local <CR>, so map them globally ourselves
+        local map_opts = { expr = true, replace_keycodes = false }
+        vim.keymap.set("i", "<CR>", "v:lua.MiniPairs.cr()", vim.tbl_extend("force", map_opts, { desc = "MiniPairs <CR>" }))
+        vim.keymap.set("i", "<BS>", "v:lua.MiniPairs.bs()", vim.tbl_extend("force", map_opts, { desc = "MiniPairs <BS>" }))
+      end,
     },
     {
       "refractalize/oil-git-status.nvim",
