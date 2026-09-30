@@ -176,6 +176,12 @@ require("lazy").setup({
       },
     },
     {
+      "nvim-mini/mini.pairs",
+      version = false,
+      event = "InsertEnter",
+      opts = {},
+    },
+    {
       "refractalize/oil-git-status.nvim",
 
       dependencies = {
