@@ -1,5 +1,7 @@
 {
   "model": "opus",
+  "effortLevel": "medium",
+  "awaySummaryEnabled": false,
   "hooks": {
     "SessionStart": [
       {
