@@ -12,8 +12,8 @@ focus_pane_left = "prefix+h" # Focus left pane
 focus_pane_down = "prefix+j" # Focus down pane
 focus_pane_up = "prefix+k"  # Focus up pane
 focus_pane_right = "prefix+l" # Focus right pane
-split_horizontal = "prefix+\"" # Standard tmux vertical split (splitting screen left/right)
-split_vertical = "prefix+%"  # Standard tmux horizontal split (splitting screen top/bottom)
+split_horizontal = ["prefix+\"", "prefix+minus"] # Stacked (top/bottom), like tmux "
+split_vertical = ["prefix+%", "prefix+|"]       # Side by side (left/right), like tmux %
 detach = "prefix+d"         # tmux detach habit (overrides Herdr's default 'q')
 
 
