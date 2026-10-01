@@ -39,6 +39,7 @@
   "agentPushNotifEnabled": true,
   "attribution": {
     "commit": "",
-    "pr": ""
+    "pr": "",
+    "sessionUrl": false
   }
 }
