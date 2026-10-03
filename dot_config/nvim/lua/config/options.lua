@@ -74,3 +74,11 @@ opt.wrap = false
 vim.g.mapleader = " " -- Set spacebar as leader key
 
 vim.g.netrw_liststyle = 3
+
+-- rustfmt's default max_width
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "rust",
+  callback = function()
+    vim.opt_local.colorcolumn = "100"
+  end,
+})

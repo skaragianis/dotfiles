@@ -46,12 +46,13 @@ require("lazy").setup({
           typescriptreact = { "biome" },
           markdown = { "prettier" },
           python = { "ruff" },
+          rust = { "rustfmt" },
           sql = { "sql_formatter" },
           yaml = { "prettier", "trim_whitespace", "trim_newlines" },
         },
 
         format_on_save = {
-          timeout_ms = 500,
+          timeout_ms = 2000,
           lsp_format = "fallback",
         },
       },
@@ -251,6 +252,8 @@ require("lazy").setup({
           "html",
           "css",
           "sql",
+          "rust",
+          "toml",
         })
 
         -- the plugin only installs parsers; highlighting/indent must be started per-buffer
@@ -273,6 +276,8 @@ require("lazy").setup({
             "html",
             "css",
             "sql",
+            "rust",
+            "toml",
           },
           callback = function()
             vim.treesitter.start()
@@ -325,7 +330,7 @@ require("lazy").setup({
           builtin.lsp_workspace_symbols,
           { desc = "Telescope LSP Document Symbols" }
         )
-        vim.keymap.set("n", "<leader>fh", builtin.diagnostics, { desc = "Telescope LSP Diagnostics" })
+        vim.keymap.set("n", "<leader>fx", builtin.diagnostics, { desc = "Telescope LSP Diagnostics" })
       end,
     },
     {
@@ -380,6 +385,67 @@ require("lazy").setup({
           ensure_installed = { "vue_ls", "eslint", "gopls", "lua_ls", "marksman", },
         })
         vim.lsp.enable({ "tsc", "vue_ls", "eslint", "gopls", "lua_ls", "ty", "ruff", "marksman" })
+      end,
+    },
+    {
+      -- Starts rust-analyzer itself; don't add rust_analyzer to vim.lsp.enable.
+      -- rust-analyzer comes from `rustup component add rust-analyzer`, not Mason.
+      "mrcjkb/rustaceanvim",
+      lazy = false, -- already lazy: it's a filetype plugin
+      init = function()
+        vim.g.rustaceanvim = {
+          server = {
+            on_attach = function(_, bufnr)
+              local function map(lhs, cmd, desc)
+                vim.keymap.set("n", lhs, "<CMD>RustLsp " .. cmd .. "<CR>", { buffer = bufnr, desc = desc })
+              end
+              map("<leader>Rr", "runnables", "Rust Runnables")
+              map("<leader>Rt", "testables", "Rust Testables")
+              map("<leader>Rd", "debuggables", "Rust Debuggables")
+              map("<leader>Rm", "expandMacro", "Rust Expand Macro")
+              map("<leader>Re", "explainError", "Rust Explain Error")
+              map("<leader>Rx", "renderDiagnostic", "Rust Render Diagnostic")
+              map("<leader>Rc", "openCargo", "Rust Open Cargo.toml")
+              map("<leader>Rp", "parentModule", "Rust Parent Module")
+            end,
+            default_settings = {
+              ["rust-analyzer"] = {
+                check = { command = "clippy" },
+                -- separate target dir so checks don't block `cargo build` on the lock
+                cargo = { targetDir = true },
+              },
+            },
+          },
+        }
+      end,
+    },
+    {
+      "saecki/crates.nvim",
+      tag = "stable",
+      event = { "BufRead Cargo.toml" },
+      opts = {
+        -- in-process LSP so blink.cmp's lsp source picks up crate completions
+        lsp = { enabled = true, actions = true, completion = true, hover = true },
+      },
+    },
+    {
+      "mfussenegger/nvim-dap",
+      -- mason puts codelldb (`:MasonInstall codelldb`) on PATH for rustaceanvim
+      dependencies = { "rcarriga/nvim-dap-ui", "nvim-neotest/nvim-nio", "williamboman/mason.nvim" },
+      keys = {
+        { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "DAP Toggle Breakpoint" },
+        { "<leader>dc", function() require("dap").continue() end, desc = "DAP Continue" },
+        { "<leader>do", function() require("dap").step_over() end, desc = "DAP Step Over" },
+        { "<leader>di", function() require("dap").step_into() end, desc = "DAP Step Into" },
+        { "<leader>dO", function() require("dap").step_out() end, desc = "DAP Step Out" },
+        { "<leader>du", function() require("dapui").toggle() end, desc = "DAP Toggle UI" },
+      },
+      config = function()
+        local dap, dapui = require("dap"), require("dapui")
+        dapui.setup()
+        dap.listeners.after.event_initialized.dapui = dapui.open
+        dap.listeners.before.event_terminated.dapui = dapui.close
+        dap.listeners.before.event_exited.dapui = dapui.close
       end,
     },
     {
