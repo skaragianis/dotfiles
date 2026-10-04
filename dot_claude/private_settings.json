@@ -16,6 +16,17 @@
       }
     ]
   },
+  "extraKnownMarketplaces": {
+    "hiroppy": {
+      "source": {
+        "source": "github",
+        "repo": "hiroppy/tmux-agent-sidebar"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "tmux-agent-sidebar@hiroppy": true
+  },
   "workflowKeywordTriggerEnabled": false,
   "statusLine": {
     "type": "command",
