@@ -5,14 +5,14 @@ opt.autoread = true
 opt.breakindent = true
 opt.clipboard = "unnamedplus"
 
--- Over SSH / inside herdr on a headless box there's no system clipboard;
+-- Over SSH / inside tmux on a headless box there's no system clipboard;
 -- send yanks to the local terminal via OSC 52 instead.
 local headless_linux = vim.fn.has("linux") == 1
   and not vim.env.DISPLAY
   and not vim.env.WAYLAND_DISPLAY
 if vim.env.SSH_TTY or vim.env.SSH_CONNECTION or headless_linux then
   local osc52 = require("vim.ui.clipboard.osc52")
-  -- herdr doesn't pass OSC 52 reads back, so share yanks between Neovim
+  -- tmux doesn't pass OSC 52 reads back, so share yanks between Neovim
   -- instances on this host via a file. Paste from the host with Cmd+V.
   local clip_file = vim.fn.stdpath("state") .. "/clipboard.json"
 
