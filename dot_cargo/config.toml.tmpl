@@ -1,0 +1,11 @@
+{{- /* Each section only appears where its tool is installed, so the Mac (and
+any box without them) gets no file at all instead of a broken build. */ -}}
+{{- if lookPath "sccache" }}
+[build]
+rustc-wrapper = "sccache"
+{{ end }}
+{{- if and (eq .chezmoi.os "linux") (lookPath "mold") }}
+# gcc 12+ understands -fuse-ld=mold, so the default cc linker is kept.
+[target.'cfg(target_os = "linux")']
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+{{ end }}
