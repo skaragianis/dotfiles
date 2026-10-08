@@ -1,7 +1,7 @@
 {
   "model": "opus",
   "effortLevel": "medium",
-  "autoCompactWindow": 300000,
+  "autoCompactWindow": 220000,
   "awaySummaryEnabled": false,
   "hooks": {
     "PreToolUse": [
