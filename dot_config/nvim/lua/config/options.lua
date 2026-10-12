@@ -12,14 +12,26 @@ local headless_linux = vim.fn.has("linux") == 1
   and not vim.env.WAYLAND_DISPLAY
 if vim.env.SSH_TTY or vim.env.SSH_CONNECTION or headless_linux then
   local osc52 = require("vim.ui.clipboard.osc52")
-  -- tmux doesn't pass OSC 52 reads back, so share yanks between Neovim
-  -- instances on this host via a file. Paste from the host with Cmd+V.
+  -- OSC 52 reads don't come back, so inside tmux the newest tmux buffer is
+  -- the clipboard shared with every other program in tmux. A file keeps the
+  -- last yank too: it remembers whether it was linewise, and it is the
+  -- clipboard between Neovim instances outside tmux. Paste from the host
+  -- with Cmd+V.
   local clip_file = vim.fn.stdpath("state") .. "/clipboard.json"
+  local in_tmux = vim.env.TMUX ~= nil
 
   local function copy(reg)
     local send = osc52.copy(reg)
     return function(lines, regtype)
-      send(lines, regtype)
+      if in_tmux then
+        -- Waited for, so a paste right after the yank reads this buffer;
+        -- -w has tmux pass the text on to the outside terminal.
+        vim
+          .system({ "tmux", "load-buffer", "-w", "-" }, { stdin = table.concat(lines, "\n") })
+          :wait(500)
+      else
+        send(lines, regtype)
+      end
       local fd = vim.uv.fs_open(clip_file, "w", tonumber("600", 8))
       if fd then
         vim.uv.fs_write(fd, vim.json.encode({ lines = lines, regtype = regtype }))
@@ -28,11 +40,27 @@ if vim.env.SSH_TTY or vim.env.SSH_CONNECTION or headless_linux then
     end
   end
 
-  local function paste()
+  local function last_yank()
     local ok, clip = pcall(function()
       return vim.json.decode(table.concat(vim.fn.readfile(clip_file), "\n"))
     end)
     if ok and type(clip) == "table" and clip.lines then
+      return clip
+    end
+  end
+
+  local function paste()
+    local clip = last_yank()
+    if in_tmux then
+      local got = vim.system({ "tmux", "save-buffer", "-" }):wait(500)
+      if got.code == 0 and got.stdout ~= "" then
+        if clip and table.concat(clip.lines, "\n") == got.stdout then
+          return { clip.lines, clip.regtype }
+        end
+        return { vim.split(got.stdout, "\n"), "v" }
+      end
+    end
+    if clip then
       return { clip.lines, clip.regtype }
     end
     return { vim.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
