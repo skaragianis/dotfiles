@@ -12,4 +12,4 @@ keybind = alt+right=unbind
 keybind = shift+enter=text:\x1b\r
 mouse-scroll-multiplier = 1
 clipboard-paste-protection = false
-
+copy-on-select = clipboard
