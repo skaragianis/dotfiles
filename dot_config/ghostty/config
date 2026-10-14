@@ -3,8 +3,8 @@ macos-titlebar-style = tabs
 window-save-state = always
 confirm-close-surface = false
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
-font-size=15
-font-family = Lilex Nerd Font
+font-size=14
+font-family = "Ioskeley Mono Term"
 font-thicken = true
 macos-option-as-alt = true
 keybind = alt+left=unbind
