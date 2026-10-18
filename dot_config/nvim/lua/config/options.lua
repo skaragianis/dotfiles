@@ -8,8 +8,8 @@ opt.clipboard = "unnamedplus"
 -- Over SSH / inside tmux on a headless box there's no system clipboard;
 -- send yanks to the local terminal via OSC 52 instead.
 local headless_linux = vim.fn.has("linux") == 1
-  and not vim.env.DISPLAY
-  and not vim.env.WAYLAND_DISPLAY
+    and not vim.env.DISPLAY
+    and not vim.env.WAYLAND_DISPLAY
 if vim.env.SSH_TTY or vim.env.SSH_CONNECTION or headless_linux then
   local osc52 = require("vim.ui.clipboard.osc52")
   -- OSC 52 reads don't come back, so inside tmux the newest tmux buffer is
@@ -27,8 +27,8 @@ if vim.env.SSH_TTY or vim.env.SSH_CONNECTION or headless_linux then
         -- Waited for, so a paste right after the yank reads this buffer;
         -- -w has tmux pass the text on to the outside terminal.
         vim
-          .system({ "tmux", "load-buffer", "-w", "-" }, { stdin = table.concat(lines, "\n") })
-          :wait(500)
+            .system({ "tmux", "load-buffer", "-w", "-" }, { stdin = table.concat(lines, "\n") })
+            :wait(500)
       else
         send(lines, regtype)
       end
@@ -108,5 +108,14 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "rust",
   callback = function()
     vim.opt_local.colorcolumn = "100"
+  end,
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client ~= nil and client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    end
   end,
 })
