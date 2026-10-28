@@ -63,7 +63,6 @@ brew "yazi"
 brew "zig"
 brew "zoxide"
 
-cask "android-studio"
 cask "anki"
 cask "bitwarden"
 cask "brave-browser"
