@@ -3,12 +3,8 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local bufnr = args.buf
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client:supports_method("textDocument/inlayHint") then
-      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    end
     vim.keymap.set("n", "<leader>ih", function()
-      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end, { buffer = bufnr, desc = "Toggle inlay hints" })
     vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
