@@ -1,4 +1,6 @@
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+-- Pressing <Esc> in normal mode clears the search highlight
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { silent = true })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
