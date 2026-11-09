@@ -1,8 +1,10 @@
 {
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "model": "opus",
-  "effortLevel": "medium",
-  "autoCompactWindow": 220000,
-  "awaySummaryEnabled": false,
   "hooks": {
     "PreToolUse": [
       {
@@ -16,6 +18,20 @@
       }
     ]
   },
+  "workflowKeywordTriggerEnabled": false,
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "tmux-agent-sidebar@hiroppy": true,
+    "cowork-plugin-management@synced": false,
+    "productivity@synced": false,
+    "cc-plugin-diff@builtin": false,
+    "cc-plugin-privacy@builtin": false,
+    "cc-plugin-plugin-authoring@builtin": false,
+    "cc-plugin-telemetry@builtin": false
+  },
   "extraKnownMarketplaces": {
     "hiroppy": {
       "source": {
@@ -24,22 +40,41 @@
       }
     }
   },
-  "enabledPlugins": {
-    "tmux-agent-sidebar@hiroppy": true
-  },
-  "workflowKeywordTriggerEnabled": false,
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline-command.sh"
-  },
+  "effortLevel": "medium",
+  "autoCompactWindow": 220000,
+  "awaySummaryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark",
   "editorMode": "vim",
   "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "attribution": {
-    "commit": "",
-    "pr": "",
-    "sessionUrl": false
+  "includeGitInstructions": false,
+  "enableArtifact": false,
+  "disableBundledSkills": true,
+  "disableWorkflows": true,
+  "disableRemoteControl": false,
+  "disableClaudeAiConnectors": true,
+  "enableAllProjectMcpServers": true,
+  "autoMemoryEnabled": true,
+  "maxBashOutputLength": 15000,
+  "spinnerTipsEnabled": false,
+  "feedbackSurveyRate": 0,
+  "feedbackDrafts": "off",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "deny": [
+      "NotebookEdit",
+      "CronCreate",
+      "ScheduleWakeup",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(**/.aws/credentials)",
+      "CronDelete",
+      "CronList",
+      "RemoteTrigger",
+      "ReportFindings"
+    ]
   }
 }
+
